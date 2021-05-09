@@ -41,11 +41,11 @@ control_capas = L.control.layers(capas_base).addTo(mapa);
 // Control de escala
 L.control.scale().addTo(mapa);
 
-// Capa vectorial de ASP en formato GeoJSON
-$.getJSON("https://tpb729-desarrollosigweb-2021.github.io/datos/sinac/areas_protegidas-wgs84.geojson", function(geodata) {
-  var capa_asp = L.geoJson(geodata, {
+// Capa vectorial de aeropuertos en formato GeoJSON
+$.getJSON("https://MontserratJB/tarea-0221/master/ign/aeropuertos.geojson", function(geodata) {
+  var capa_aero = L.geoJson(geodata, {
     style: function(feature) {
-	  return {'color': "#013220", 'weight': 2.5, 'fillOpacity': 0.0}
+	  return {'color': "#CC0000", 'weight': 2.5, 'fillOpacity': 0.0}
     },
     onEachFeature: function(feature, layer) {
       var popupText = "<strong>Área protegida</strong>: " + feature.properties.nombre_asp + "<br>" + "<strong>Categoría</strong>: " + feature.properties.cat_manejo;
@@ -53,7 +53,22 @@ $.getJSON("https://tpb729-desarrollosigweb-2021.github.io/datos/sinac/areas_prot
     }			
   }).addTo(mapa);
 
-  control_capas.addOverlay(capa_asp, 'Áreas protegidas');
+  control_capas.addOverlay(capa_aero, 'Aeropuertos');
+});	
+
+// Capa vectorial de distritos en formato GeoJSON
+$.getJSON("https://tpb729-desarrollosigweb-2021.github.io/datos/ign/distritos-wgs84.geojson", function(geodata) {
+  var capa_dis = L.geoJson(geodata, {
+    style: function(feature) {
+	  return {'color': "#ff0000", 'weight': 2.5, 'fillOpacity': 0.0}
+    },
+    onEachFeature: function(feature, layer) {
+      var popupText = "<strong>Distrito</strong>: " + feature.properties.distrito + "<br>" + "<strong>Cantón</strong>: " + feature.properties.canton + "<br>" + "<strong>Provincia</strong>: " + feature.properties.provincia0;
+      layer.bindPopup(popupText);
+    }			
+  }).addTo(mapa);
+
+  control_capas.addOverlay(capa_dis, 'Distritos');
 });	
 
 // Capa vectorial de distritos en formato GeoJSON
