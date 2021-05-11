@@ -1,5 +1,5 @@
 // Mapa Leaflet
-var mapa = L.map('mapid').setView([9.8, -84.25], 8);
+var mapa = L.map('mapid').setView([9.8, -84.25], 7);
 
 // Definición de capa base
 var capa_osm = L.tileLayer(
@@ -42,10 +42,10 @@ control_capas = L.control.layers(capas_base).addTo(mapa);
 L.control.scale().addTo(mapa);
 
 // Capa vectorial de aeropuertos en formato GeoJSON
-$.getJSON("https://MontserratJB/tarea-0221/master/ign/aeropuertos.geojson", function(geodata) {
+$.getJSON("https://raw.githubusercontent.com/MontserratJB/tarea-0221/master/ign/aeropuertowgs.geojson", function(geodata) {
   var capa_aero = L.geoJson(geodata, {
     style: function(feature) {
-	  return {'color': "#CC0000", 'weight': 2.5, 'fillOpacity': 0.0}
+	  return {'Size': 10, 'color': "#CC0000", 'weight': 1, 'fillOpacity': 0.0}
     },
     onEachFeature: function(feature, layer) {
       var popupText = "<strong>Área protegida</strong>: " + feature.properties.nombre_asp + "<br>" + "<strong>Categoría</strong>: " + feature.properties.cat_manejo;
@@ -56,9 +56,9 @@ $.getJSON("https://MontserratJB/tarea-0221/master/ign/aeropuertos.geojson", func
   control_capas.addOverlay(capa_aero, 'Aeropuertos');
 });	
 
-// Capa vectorial de distritos en formato GeoJSON
-$.getJSON("https://tpb729-desarrollosigweb-2021.github.io/datos/ign/distritos-wgs84.geojson", function(geodata) {
-  var capa_dis = L.geoJson(geodata, {
+// Capa vectorial de paramo en formato GeoJSON
+$.getJSON("https://raw.githubusercontent.com/MontserratJB/tarea-0221/master/ign/paramowgs.geojson", function(geodata) {
+  var capa_par = L.geoJson(geodata, {
     style: function(feature) {
 	  return {'color': "#ff0000", 'weight': 2.5, 'fillOpacity': 0.0}
     },
@@ -68,12 +68,12 @@ $.getJSON("https://tpb729-desarrollosigweb-2021.github.io/datos/ign/distritos-wg
     }			
   }).addTo(mapa);
 
-  control_capas.addOverlay(capa_dis, 'Distritos');
+  control_capas.addOverlay(capa_par, 'Paramo');
 });	
 
-// Capa vectorial de distritos en formato GeoJSON
-$.getJSON("https://tpb729-desarrollosigweb-2021.github.io/datos/ign/distritos-wgs84.geojson", function(geodata) {
-  var capa_dis = L.geoJson(geodata, {
+// Capa vectorial de linea de costa en formato GeoJSON
+$.getJSON("https://github.com/MontserratJB/tarea-0221/blob/master/ign/simplineacostawgs.geojson", function(geodata) {
+  var capa_lcos = L.geoJson(geodata, {
     style: function(feature) {
 	  return {'color': "#ff0000", 'weight': 2.5, 'fillOpacity': 0.0}
     },
@@ -83,5 +83,5 @@ $.getJSON("https://tpb729-desarrollosigweb-2021.github.io/datos/ign/distritos-wg
     }			
   }).addTo(mapa);
 
-  control_capas.addOverlay(capa_dis, 'Distritos');
+  control_capas.addOverlay(capa_lcos, 'Linea de costa');
 });	
